@@ -1,5 +1,5 @@
-import { readFileSync, existsSync, statSync } from "node:fs"
-import { resolve } from 'pathe'
+import { readFileSync, existsSync, statSync } from "node:fs";
+import { resolve } from "pathe";
 export const files = new Map<string, string>();
 
 /**
@@ -11,30 +11,39 @@ export const files = new Map<string, string>();
 */
 export function extractJSDoc(modulePath: string, functionName: string) {
   try {
-    const jsDocRE = new RegExp(`(\\/\\*\\*[\\s\\S]*\\*\\/)\\s*(?:\n[^\\n]*${functionName})`,'i')
-    modulePath = resolve(modulePath.replaceAll('../',""))
+    const jsDocRE = new RegExp(
+      `(\\/\\*\\*[\\s\\S]*\\*\\/)\\s*(?:\n[^\\n]*${functionName})`,
+      "i",
+    );
+    modulePath = resolve(modulePath.replaceAll("../", ""));
     // We want to cache the files to avoid duplicate lookups
     if (!files.has(modulePath)) {
       // This is a top level dep directory (example: h3), which is why it has package.json
       if (existsSync(modulePath + "/package.json")) {
-        const pkg = JSON.parse(readFileSync(modulePath + "/package.json", "utf8"))
-        files.set(modulePath, readFileSync(modulePath + "/" + pkg.main, "utf8"))
+        const pkg = JSON.parse(
+          readFileSync(modulePath + "/package.json", "utf8"),
+        );
+        files.set(
+          modulePath,
+          readFileSync(modulePath + "/" + pkg.main, "utf8"),
+        );
       }
       // This is a nested dep directory (example: h3/core)
       else {
-        if(statSync(modulePath).isDirectory()) { modulePath = modulePath+"/index" }
-        for (const ext of [".ts",".js",".mjs",".cjs"]) {
+        if (statSync(modulePath).isDirectory()) {
+          modulePath = modulePath + "/index";
+        }
+        for (const ext of [".ts", ".js", ".mjs", ".cjs"]) {
           if (existsSync(modulePath + ext)) {
-            files.set(modulePath, readFileSync(modulePath+ext, "utf8"))
-            break
+            files.set(modulePath, readFileSync(modulePath + ext, "utf8"));
+            break;
           }
         }
       }
     }
-    const jsDoc = files.get(modulePath)?.match(jsDocRE)
+    const jsDoc = files.get(modulePath)?.match(jsDocRE);
     return jsDoc;
-  }
-  catch (error) {
-    throw new Error("[UnJSDoc] Error during extraction of JSDoc: "+ error)
+  } catch (error) {
+    throw new Error("[UnJSDoc] Error during extraction of JSDoc: " + error);
   }
 }
