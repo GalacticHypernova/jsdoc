@@ -28,7 +28,7 @@ export function extractJSDoc(modulePath: string, member: string) {
           readFileSync(modulePath + "/" + pkg.main, "utf8"),
         );
       }
-      // This is a nested dep directory (example: h3/core)
+      // This is a nested dep directory
       else {
         if (statSync(modulePath).isDirectory()) {
           modulePath = modulePath + "/index";
