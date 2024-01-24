@@ -3,16 +3,16 @@ import { resolve } from "pathe";
 export const files = new Map<string, string>();
 
 /**
-* A utility for extracting the JSDoc annotations from a function in the given module, if it exists.
+* A utility for extracting the JSDoc annotations from a member in the given module, if it exists.
   @param modulePath - The path to the module containing the function.
-  @param functionName - The name of the function to extract the JSDoc annotations from.
+  @param member - The name of the member to extract the JSDoc annotations from.
   @returns The JSDoc annotations for the given function, if it exists.
   @throws {Error} if something went wrong
 */
-export function extractJSDoc(modulePath: string, functionName: string) {
+export function extractJSDoc(modulePath: string, member: string) {
   try {
     const jsDocRE = new RegExp(
-      `(\\/\\*\\*[\\s\\S]*\\*\\/)\\s*(?:\n[^\\n]*${functionName})`,
+      `(\\/\\*\\*[\\s\\S]*\\*\\/)\\s*(?:\n[^\\n]*${member})`,
       "i",
     );
     modulePath = resolve(modulePath.replaceAll("../", ""));
