@@ -1,0 +1,49 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`unjsdoc > should extract jsdoc > 
+        "/**
+ * Test function with JSDoc
+ * @param test
+ * @param test2
+ * @returns {number}
+ */ 1`] = `
+"/**
+ * Test function with JSDoc
+ * @param test
+ * @param test2
+ * @returns {number}
+ */
+export function hasJSDoc"
+`;
+
+exports[`unjsdoc > should extract jsdoc > 
+        /**
+         * Test function with JSDoc
+         * @param test
+         * @param test2
+         * @returns {number}
+         */ 1`] = `
+"/**
+ * Test function with JSDoc
+ * @param test
+ * @param test2
+ * @returns {number}
+ */
+export function hasJSDoc"
+`;
+
+exports[`unjsdoc > should extract jsdoc > 
+        /**
+ * Test function with JSDoc
+ * @param test
+ * @param test2
+ * @returns {number}
+ */ 1`] = `
+"/**
+ * Test function with JSDoc
+ * @param test
+ * @param test2
+ * @returns {number}
+ */
+export function hasJSDoc"
+`;
