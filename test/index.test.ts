@@ -14,10 +14,12 @@ describe("unjsdoc",() => {
     })
     it("should return null for non-existent jsdoc", () => {
         const jsdoc = extractJSDoc("../playground", "noJSDoc")
+        // eslint-disable-next-line unicorn/no-null
         expect(jsdoc).toEqual(null)
     })
     it("should return null for non-existent function", () => {
         const jsdoc = extractJSDoc("../playground", "noFunction")
+        // eslint-disable-next-line unicorn/no-null
         expect(jsdoc).toEqual(null)
     })
 })

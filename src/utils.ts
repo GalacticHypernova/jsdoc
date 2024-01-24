@@ -13,16 +13,17 @@ export function extractJSDoc(modulePath: string, functionName: string) {
   try {
     const jsDocRE = new RegExp(`(\\/\\*\\*[\\s\\S]*\\*\\/)\\s*(?:\n[^\\n]*${functionName})`,'i')
     modulePath = resolve(modulePath.replaceAll('../',""))
+    // We want to cache the files to avoid duplicate lookups
     if (!files.has(modulePath)) {
+      // This is a top level dep directory (example: h3), which is why it has package.json
       if (existsSync(modulePath + "/package.json")) {
         const pkg = JSON.parse(readFileSync(modulePath + "/package.json", "utf8"))
         files.set(modulePath, readFileSync(modulePath + "/" + pkg.main, "utf8"))
       }
+      // This is a nested dep directory (example: h3/core)
       else {
         if(statSync(modulePath).isDirectory()) { modulePath = modulePath+"/index" }
-        console.log(modulePath)
         for (const ext of [".ts",".js",".mjs",".cjs"]) {
-          console.log("hi")
           if (existsSync(modulePath + ext)) {
             files.set(modulePath, readFileSync(modulePath+ext, "utf8"))
             break
@@ -30,7 +31,6 @@ export function extractJSDoc(modulePath: string, functionName: string) {
         }
       }
     }
-    console.log(files, modulePath, jsDocRE)
     const jsDoc = files.get(modulePath)?.match(jsDocRE)
     return jsDoc;
   }
