@@ -2,7 +2,7 @@ import { expect, it, describe } from "vitest";
 import { extractJSDoc } from "../src";
 
 describe("unjsdoc", () => {
-  decribe("extractJSDoc", () => {
+  describe("extractJSDoc", () => {
     it("should extract jsdoc", () => {
       const jsdoc = extractJSDoc("../playground", "hasJSDoc");
       expect(jsdoc[0]).toMatchSnapshot(`
