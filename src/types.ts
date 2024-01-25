@@ -6,4 +6,7 @@ export declare const files: Map<string, string>;
   @returns The JSDoc annotations for the given function, if it exists.
   @throws {Error} if something went wrong
 */
-export declare function extractJSDoc(modulePath: string, member: string): RegExpMatchArray | null | undefined;
+export declare function extractJSDoc(
+  modulePath: string,
+  member: string,
+): RegExpMatchArray | null | undefined;
