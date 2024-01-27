@@ -9,7 +9,7 @@ export function hasJSDoc(test: number, test2: number) {
     return test + test2;
 }
 
-export function noJSDoc(test: number, test2: number) {
+export function noJSDoc(test: number, test2) {
     return test + test2;
 }
 

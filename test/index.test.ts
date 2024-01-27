@@ -1,9 +1,13 @@
 import { expect, it, describe } from "vitest";
-import { extractJSDoc } from "../src";
+import { extractJSDoc, generateJSDocs } from "../src";
+import { hasJSDoc, noJSDoc } from "../playground";
+
+
 
 describe("unjsdoc", () => {
   it("should extract jsdoc", () => {
     const jsdoc = extractJSDoc("../playground", "hasJSDoc");
+    console.log(generateJSDocs("../playground",noJSDoc))
     expect(jsdoc[0]).toMatchSnapshot(`
         /**
          * Test function with JSDoc
